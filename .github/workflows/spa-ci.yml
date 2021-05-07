@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v2
     - uses: azure/docker-login@v1
       with:
         login-server: dotnet2021cypress.azurecr.io
@@ -18,5 +19,5 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     
     - run: |
-        docker build . -t dotnet2021cypress.azurecr.io/spa:${{ github.sha }} --file ./Dockefile
+        docker build . -t dotnet2021cypress.azurecr.io/spa:${{ github.sha }}
         docker push dotnet2021cypress.azurecr.io/spa:${{ github.sha }}
