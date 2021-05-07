@@ -1,4 +1,4 @@
-name: SPA CI
+name: SPA CI/CD
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   
 jobs:
 
-  build:
+  ci:
 
     runs-on: ubuntu-latest
 
