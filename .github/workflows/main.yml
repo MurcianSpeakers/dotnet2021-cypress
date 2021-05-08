@@ -10,11 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    
     - uses: azure/docker-login@v1
       with:
         login-server: dotnet2021cypress.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
+        
     - run: |
         docker build . -t dotnet2021cypress.azurecr.io/spa:${{ github.sha }}
         docker push dotnet2021cypress.azurecr.io/spa:${{ github.sha }}
@@ -27,3 +29,12 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'dotnet2021-cypress'
+        images: 'dotnet2021cypress.azurecr.io/spa:${{ github.sha }}'
+    
+    - name: Azure logout
+      run: |
+        az logout
