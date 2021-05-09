@@ -83,3 +83,8 @@ jobs:
     - name: 'Run e2e tests with Cypress'
       run: npx cypress run
       working-directory: ./e2e-tests
+    - name: 'Publish Test Results'
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      if: always()
+      with:
+        files: ./e2e-tests/test-output-*.xml
