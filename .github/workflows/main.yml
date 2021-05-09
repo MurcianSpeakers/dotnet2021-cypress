@@ -3,6 +3,8 @@ name: SPA CI/CD
 on:
   push:
     branches: [ main ]
+  paths:
+      - '!terraform/**'
   
 jobs:
 

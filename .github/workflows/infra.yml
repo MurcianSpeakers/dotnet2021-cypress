@@ -1,0 +1,14 @@
+name: Infrastructure
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - terraform/**
+  
+jobs:
+
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
