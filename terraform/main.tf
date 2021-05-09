@@ -22,7 +22,7 @@ resource "azurerm_resource_group" "dotnet2021cypress" {
 
 # Azure Container Registry
 resource "azurerm_container_registry" "acr" {
-  name                = "dotnet2021-cypress"
+  name                = "dotnet2021cypress"
   resource_group_name = azurerm_resource_group.dotnet2021cypress.name
   location            = "West Europe"
   sku                 = "Basic"
