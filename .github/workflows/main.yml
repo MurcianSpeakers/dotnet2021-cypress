@@ -3,8 +3,8 @@ name: SPA CI/CD
 on:
   push:
     branches: [ main ]
-  paths:
-      - !terraform/**
+    paths-ignore:
+      - terraform/**
 
 jobs:
 
