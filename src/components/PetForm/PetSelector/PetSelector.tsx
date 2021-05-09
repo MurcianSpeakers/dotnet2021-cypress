@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import './petSelector.css';
 export interface IPetSelectorProps {
     value: "cat" | "dog";
     onChange: (value: "cat" | "dog") => void;

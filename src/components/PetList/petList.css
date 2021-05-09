@@ -1,0 +1,29 @@
+.myapp-pets-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.myapp-pets-list figure {
+    position: relative;
+    margin: 8px;
+}
+.myapp-pets-list img {
+    object-fit: cover;
+    width: 300px;
+    height: 200px;
+    border-radius: .25rem;
+    border: 1px solid #dcdcdc;
+    padding: 0.25rem;
+}
+
+.myapp-pets-list figcaption {
+    position:absolute;
+    top: 1px;
+    left: 1px;
+    background-color: rgba(255, 255, 255, 0.822);
+    padding: 4px 10px;
+    border-radius: 4px;
+    min-width: 80px;
+    text-align: center;
+    border-bottom-right-radius: 4px;
+}
