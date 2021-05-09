@@ -16,6 +16,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: e2e-tests.zip
+        path: e2e-tests.zip
     - uses: azure/docker-login@v1
       with:
         login-server: dotnet2021cypress.azurecr.io
