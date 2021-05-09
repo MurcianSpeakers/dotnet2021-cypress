@@ -57,15 +57,15 @@ resource "azurerm_app_service" "dotnet2021cypress" {
   resource_group_name = azurerm_resource_group.dotnet2021cypress.name
   app_service_plan_id = azurerm_app_service_plan.dotnet2021cypress.id
 
-  site_config {
-    always_on        = true
-    linux_fx_version = "DOCKER|${data.azurerm_container_registry.acr.login_server}/spa:latest"
+  app_settings = {
+    WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
+    DOCKER_REGISTRY_SERVER_URL          = "https://${azurerm_container_registry.acr.login_server}"
+    DOCKER_REGISTRY_SERVER_USERNAME     = azurerm_container_registry.acr.admin_username
+    DOCKER_REGISTRY_SERVER_PASSWORD     = azurerm_container_registry.acr.admin_password
   }
 
-  app_settings {
-    WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
-    DOCKER_REGISTRY_SERVER_URL          = "https://${data.azurerm_container_registry.acr.login_server}"
-    DOCKER_REGISTRY_SERVER_USERNAME     = data.azurerm_container_registry.acr.admin_username
-    DOCKER_REGISTRY_SERVER_PASSWORD     = data.azurerm_container_registry.acr.admin_password
+  site_config {
+    always_on        = true
+    linux_fx_version = "DOCKER|${azurerm_container_registry.acr.login_server}/spa:latest"
   }
 }
