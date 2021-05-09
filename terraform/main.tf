@@ -41,7 +41,7 @@ resource "azurerm_resource_group" "dotnet2021cypress" {
 # App Service Plan
 resource "azurerm_app_service_plan" "dotnet2021cypress" {
   name                = "dotnet2021-cypress-sp"
-  location            = "West Europe"
+  location            = azurerm_resource_group.dotnet2021cypress.location
   resource_group_name = azurerm_resource_group.dotnet2021cypress.name
   kind                = "Linux"
   reserved            = true
@@ -56,7 +56,7 @@ resource "azurerm_app_service_plan" "dotnet2021cypress" {
 resource "azurerm_container_registry" "acr" {
   name                = "dotnet2021cypress"
   resource_group_name = azurerm_resource_group.dotnet2021cypress.name
-  location            = "West Europe"
+  location            = azurerm_resource_group.dotnet2021cypress.location
   sku                 = "Basic"
   admin_enabled       = true
 }
@@ -64,7 +64,7 @@ resource "azurerm_container_registry" "acr" {
 # Web App
 resource "azurerm_app_service" "dotnet2021cypress" {
   name                = "dotnet2021-cypress"
-  location            = "West Europe"
+  location            = azurerm_resource_group.dotnet2021cypress.location
   resource_group_name = azurerm_resource_group.dotnet2021cypress.name
   app_service_plan_id = azurerm_app_service_plan.dotnet2021cypress.id
 
