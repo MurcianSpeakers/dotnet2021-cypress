@@ -27,6 +27,20 @@ resource "azurerm_resource_group" "dotnet2021cypress" {
   location = "North Europe"
 }
 
+# App Service Plan
+resource "azurerm_app_service_plan" "dotnet2021cypress" {
+  name                = "dotnet2021-cypress-sp"
+  location            = "West Europe"
+  resource_group_name = azurerm_resource_group.dotnet2021cypress.name
+  kind                = "Linux"
+  reserved            = true
+
+  sku {
+    tier = "Free"
+    size = "F1"
+  }
+}
+
 # Azure Container Registry
 resource "azurerm_container_registry" "acr" {
   name                = "dotnet2021cypress"
