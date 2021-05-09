@@ -1,0 +1,37 @@
+name: SPA pull request
+
+on:
+  pull_request:
+    branches: [ main ]
+  
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: 'Configure nodejs 14'
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - name: 'Install yarn globally'
+      run: npm install -g yarn
+    - name: 'yarn install'
+      run: yarn --frozen-lockfile
+    - name: 'Check lint'
+      run: yarn run lint
+    - name: 'Run unit tests'
+      run: yarn run test:ci
+    - name: 'Publish Test Results'
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      if: always()
+      with:
+        files: ./junit.xml
+        check_name: 'Unit Test Results'
+    - name: 'Publish coverage report'
+      uses: 5monkeys/cobertura-action@master
+      with:
+        path: coverage/cobertura-coverage.xml
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: 'Build'
+      run: yarn build
