@@ -77,7 +77,7 @@ resource "azurerm_app_service" "dotnet2021cypress" {
 
   site_config {
     use_32_bit_worker_process = true
-    always_on                 = true
+    always_on                 = false
     linux_fx_version          = "DOCKER|${azurerm_container_registry.acr.login_server}/spa:latest"
   }
 }
