@@ -1,4 +1,4 @@
-name: SPA pull request
+name: SPA Pull requests
 
 on:
   pull_request:
