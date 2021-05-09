@@ -1,11 +1,11 @@
-name: 'SPA CI/CD'
+name: SPA CI/CD
 
 on:
   push:
     branches: [ main ]
   paths:
-      - '!terraform/**'
-  
+      - !terraform/**
+
 jobs:
 
   CI:
