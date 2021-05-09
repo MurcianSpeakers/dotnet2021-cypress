@@ -1,4 +1,4 @@
-name: SPA CI/CD
+name: 'SPA CI/CD'
 
 on:
   push:
