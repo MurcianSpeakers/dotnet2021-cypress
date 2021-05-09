@@ -60,7 +60,4 @@ jobs:
         tf_actions_version: 0.14.8
         tf_actions_subcommand: 'applya'
         tf_actions_working_dir: "./terraform"
-        variables: |
-          acr_admin_username = "${{ secrets.REGISTRY_USERNAME }}"
-          acr_admin_password = "${{ secrets.REGISTRY_PASSWORD }}"
           

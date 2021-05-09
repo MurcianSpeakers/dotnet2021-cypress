@@ -7,14 +7,6 @@ terraform {
   }
 }
 
-variable "acr_admin_username" {
-  type = string
-}
-
-variable "acr_admin_password" {
-  type = string
-}
-
 provider "azurerm" {
   version = "~>2.0"
   features {}
@@ -23,7 +15,7 @@ provider "azurerm" {
 data "azurerm_client_config" "current" {}
 
 # Resource Group
-resource "azurerm_resource_group" "dotnet2021-cypress" {
+resource "azurerm_resource_group" "dotnet2021cypress" {
   name     = "dotnet2021-cypress"
   location = "North Europe"
 }
@@ -31,11 +23,9 @@ resource "azurerm_resource_group" "dotnet2021-cypress" {
 # Azure Container Registry
 resource "azurerm_container_registry" "acr" {
   name                = "dotnet2021-cypress"
-  resource_group_name = azurerm_resource_group.dotnet2021-cypress.name
+  resource_group_name = azurerm_resource_group.dotnet2021cypress.name
   location            = "West Europe"
   sku                 = "Basic"
   admin_enabled       = true
-  admin_username      = var.acr_admin_username
-  admin_password      = var.acr_admin_password
 }
 
