@@ -72,11 +72,10 @@ jobs:
       uses: montudor/action-zip@v1
       with:
         args: unzip -qq e2e-tests.zip -d e2e-tests
-    - run: ls ./e2e-tests
     - name: 'Update cypress.json baseUrl'
       uses: jossef/action-set-json-field@v1
       with:
-        file: e2e-tests/cypress.json
+        file: ./e2e-tests/cypress.json
         field: baseUrl
         value: https://dotnet2021-cypress.azurewebsites.net
     - name: 'Run e2e tests with Cypress'
