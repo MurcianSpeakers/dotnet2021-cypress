@@ -10,19 +10,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: montudor/action-zip@v1
+    - name: 'Configure nodejs 14'
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - name: 'Archive e2e tests'
+      uses: montudor/action-zip@v1
       with:
         args: zip -qq -r e2e-tests.zip cypress cypress.json
-    - uses: actions/upload-artifact@v2
+    - name: 'Upload e2e tests artifact'
+      uses: actions/upload-artifact@v2
       with:
         name: e2e-tests.zip
         path: e2e-tests.zip
-    - uses: azure/docker-login@v1
+    - name: 'Login to the Azure Container Registry' 
+      uses: azure/docker-login@v1
       with:
         login-server: dotnet2021cypress.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-    - run: |
+    - name: 'Build the docker image and push it to the ACR' 
+      run: |
         docker build . -t dotnet2021cypress.azurecr.io/spa:${{ github.sha }}
         docker push dotnet2021cypress.azurecr.io/spa:${{ github.sha }}
 
@@ -38,11 +46,12 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - uses: azure/webapps-deploy@v2
+    - name: 'Deploy the docker image to the WebApp'
+      uses: azure/webapps-deploy@v2
       with:
         app-name: 'dotnet2021-cypress'
         images: 'dotnet2021cypress.azurecr.io/spa:${{ github.sha }}'
-    - name: Azure logout
+    - name: 'Azure logout'
       run: |
         az logout
 
@@ -51,9 +60,23 @@ jobs:
     needs: CD
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/download-artifact@v2
+    - name: 'Configure nodejs 14'
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - name: 'Download e2e tests artifact'
+      uses: actions/download-artifact@v2
       with:
         name: e2e-tests.zip
-    - uses: montudor/action-zip@v1
+    - name: 'Extract e2e tests'
+      uses: montudor/action-zip@v1
       with:
         args: unzip -qq e2e-tests.zip -d e2e-tests
+    - name: 'Update cypress.json baseUrl'
+      uses: jossef/action-set-json-field@v1
+      with:
+        file: e2e-tests/cypress.json
+        field: baseUrl
+        value: https://dotnet2021-cypress.azurewebsites.net
+    - name: 'Run e2e tests with Cypress'
+      run: npx cypress run
