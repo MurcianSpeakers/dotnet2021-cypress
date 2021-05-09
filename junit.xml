@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="1" failures="0" errors="0" time="8.277">
+  <testsuite name="The PetForm component" errors="0" failures="0" skipped="0" timestamp="2021-05-09T13:46:43" time="3.753" tests="1">
+    <testcase classname="The PetForm component should have a name input" name="The PetForm component should have a name input" time="0.049">
+    </testcase>
+  </testsuite>
+</testsuites>

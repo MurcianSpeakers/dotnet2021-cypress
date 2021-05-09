@@ -1,18 +1,18 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, ReactElement, useEffect, useState } from 'react';
 import './petSelector.css';
 export interface IPetSelectorProps {
     value: "cat" | "dog";
     onChange: (value: "cat" | "dog") => void;
 }
 
-export const PetSelector = ({value, onChange}: IPetSelectorProps) => {
+export const PetSelector = ({ value, onChange }: IPetSelectorProps): ReactElement => {
     const [_value, setValue] = useState(value);
-    
+
     useEffect(() => {
         setValue(value);
     }, [value]);
-    
-    const _onChange = (event: ChangeEvent<HTMLInputElement>) => {
+
+    const _onChange = (event: ChangeEvent<HTMLInputElement>): void => {
         const eventValue = event.target.value as "cat" | "dog";
         setValue(eventValue);
         onChange(eventValue);

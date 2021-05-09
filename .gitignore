@@ -25,3 +25,9 @@ yarn-error.log*
 # cypress
 test-output-*.xml
 cypress/screenshots
+
+# eslint
+.cache-eslint
+
+# npm
+package-lock.json

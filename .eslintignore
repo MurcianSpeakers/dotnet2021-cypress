@@ -1,0 +1,7 @@
+.cache-eslint/
+build/
+nginx/
+node_modules/
+scripts/
+public/
+**/*.json

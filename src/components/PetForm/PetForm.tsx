@@ -1,17 +1,18 @@
-import React, { useRef } from 'react';
+import React, { ReactElement, useRef } from 'react';
 import { Pet } from '../../model/pet';
 import { PetSelector } from './PetSelector/PetSelector';
 import './petForm.css';
 
 export interface IPetFormProps {
   addPet: (value: Pet) => void;
+  petCount: number;
   className?: string;
 }
-export function PetForm({ addPet, className }: IPetFormProps) {
+export function PetForm({ addPet, className, petCount }: IPetFormProps): ReactElement {
   const pet = useRef<"cat" | "dog">("cat");
   const nameRef = useRef<HTMLInputElement>(null);
 
-  const onAddClick = async () => {
+  const onAddClick = async (): Promise<void> => {
 
     const api = `https://api.the${pet.current}api.com/v1/images/search?size=small&limit=1`;
 
@@ -21,6 +22,7 @@ export function PetForm({ addPet, className }: IPetFormProps) {
       .catch(() => undefined);
 
     addPet({
+      id: petCount + 1,
       name: nameRef.current?.value ?? "",
       type: pet.current,
       imageUrl: imageUrl
