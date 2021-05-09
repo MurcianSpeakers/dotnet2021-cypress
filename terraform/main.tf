@@ -31,7 +31,7 @@ resource "azurerm_resource_group" "dotnet2021-cypress" {
 # Azure Container Registry
 resource "azurerm_container_registry" "acr" {
   name                = "dotnet2021-cypress"
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = azurerm_resource_group.dotnet2021-cypress.name
   location            = "West Europe"
   sku                 = "Basic"
   admin_enabled       = true
