@@ -39,5 +39,3 @@ resource "azurerm_container_registry" "acr" {
   admin_password           = var.acr_admin_password
 }
  
-
-  
