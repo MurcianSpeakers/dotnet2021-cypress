@@ -21,6 +21,17 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
+# Input variables 
+variable "registry_username" {
+  type      = string
+  sensitive = true
+}
+
+variable "registry_password" {
+  type      = string
+  sensitive = true
+}
+
 # Resource Group
 resource "azurerm_resource_group" "dotnet2021cypress" {
   name     = "dotnet2021-cypress"
@@ -60,12 +71,13 @@ resource "azurerm_app_service" "dotnet2021cypress" {
   app_settings = {
     WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
     DOCKER_REGISTRY_SERVER_URL          = "https://${azurerm_container_registry.acr.login_server}"
-    DOCKER_REGISTRY_SERVER_USERNAME     = azurerm_container_registry.acr.admin_username
-    DOCKER_REGISTRY_SERVER_PASSWORD     = azurerm_container_registry.acr.admin_password
+    DOCKER_REGISTRY_SERVER_USERNAME     = var.registry_username
+    DOCKER_REGISTRY_SERVER_PASSWORD     = var.registry_password
   }
 
   site_config {
-    always_on        = true
-    linux_fx_version = "DOCKER|${azurerm_container_registry.acr.login_server}/spa:latest"
+    use_32_bit_worker_process = true
+    always_on                 = true
+    linux_fx_version          = "DOCKER|${azurerm_container_registry.acr.login_server}/spa:latest"
   }
 }
