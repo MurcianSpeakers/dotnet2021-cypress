@@ -1,1 +1,13 @@
-{}
+{
+    "baseUrl": "http://localhost:3000",
+    "env": {},
+    "reporter": "junit",
+    "reporterOptions": {
+      "mochaFile": "test-output-[hash].xml",
+      "toConsole": true,
+      "attachments": true
+    },
+    "video": false,
+    "defaultCommandTimeout": 10000
+  }
+  

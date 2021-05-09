@@ -2,7 +2,7 @@
 
 describe('Pet form', () => {
     beforeEach(() => {
-      cy.visit('http://localhost:3000');
+      cy.visit('/');
     });
 
     it("Should show form", () => {
