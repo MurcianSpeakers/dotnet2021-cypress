@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r e2e-tests.zip cypress cypress.json
+    - uses: actions/upload-artifact@v2
+      with:
+        name: e2e-tests.zip
     - uses: azure/docker-login@v1
       with:
         login-server: dotnet2021cypress.azurecr.io
@@ -38,3 +44,15 @@ jobs:
     - name: Azure logout
       run: |
         az logout
+
+  e2e:
+    name: Run e2e tests
+    needs: CD
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@v2
+      with:
+        name: e2e-tests.zip
+    - uses: montudor/action-zip@v1
+      with:
+        args: unzip -qq e2e-tests.zip -d e2e-tests
