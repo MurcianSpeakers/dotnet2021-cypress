@@ -1,9 +1,9 @@
 terraform {
   backend "azurerm" {
     resource_group_name  = "dotnet2021-cypress"
-    storage_account_name = "tfstatedevops"
-    container_name       = "terraformdotnet2021"
-    key                  = "terraformdotnet2021.tfstate"
+    storage_account_name = "dotnet2021tfstate"
+    container_name       = "dotnet2021cypress"
+    key                  = "dotnet2021cypress.tfstate"
   }
 }
 
