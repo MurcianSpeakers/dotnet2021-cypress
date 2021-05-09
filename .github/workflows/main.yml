@@ -73,11 +73,12 @@ jobs:
       with:
         args: unzip -qq e2e-tests.zip -d e2e-tests
     - run: ls -l e2e-tests
+    - run: sudo chmod -R 777 e2e-tests/cypress.json
     - name: 'Update cypress.json baseUrl'
-      uses: MerthinTechnologies/edit-json-action@v1
+      uses: jossef/action-set-json-field@v1
       with:
-        filename: './e2e-tests/cypress.json'
-        key: 'baseUrl'
-        value: 'https://dotnet2021-cypress.azurewebsites.net'
+        file: ./e2e-tests/cypress.json
+        field: baseUrl
+        value: https://dotnet2021-cypress.azurewebsites.net
     - name: 'Run e2e tests with Cypress'
       run: npx cypress run
