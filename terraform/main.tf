@@ -1,4 +1,11 @@
 terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=2.46.0"
+    }
+  }
+
   backend "azurerm" {
     resource_group_name  = "dotnet2021-cypress"
     storage_account_name = "dotnet2021tfstate"
@@ -8,8 +15,8 @@ terraform {
 }
 
 provider "azurerm" {
-  version = "~>2.0"
   features {}
+  skip_provider_registration = true
 }
 
 data "azurerm_client_config" "current" {}
